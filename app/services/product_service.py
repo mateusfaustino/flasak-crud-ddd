@@ -1,5 +1,5 @@
 from ..adapters.sqlalchemy.models import Product
-from ..domain.repositories import ProductRepository
+from ..adapters.sqlalchemy.repositories import ProductRepository
 
 
 class ProductService:
