@@ -4,22 +4,25 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import current_app, request, jsonify
 from functools import wraps
 
-from ..adapters.sqlalchemy.models import User
-from ..adapters.sqlalchemy.repositories import UserRepository
+from ..domain.entities import User
+from ..domain.repositories import UserRepositoryInterface
 
 
 class AuthService:
-    @staticmethod
-    def register(username: str, password: str):
-        if UserRepository.get_by_username(username):
+    """Handle user registration and authentication."""
+
+    def __init__(self, user_repository: UserRepositoryInterface) -> None:
+        self.user_repository = user_repository
+
+    def register(self, username: str, password: str):
+        if self.user_repository.get_by_username(username):
             return None
         user = User(username=username, password_hash=generate_password_hash(password))
-        UserRepository.add(user)
+        self.user_repository.add(user)
         return user
 
-    @staticmethod
-    def authenticate(username: str, password: str):
-        user = UserRepository.get_by_username(username)
+    def authenticate(self, username: str, password: str):
+        user = self.user_repository.get_by_username(username)
         if user and check_password_hash(user.password_hash, password):
             payload = {
                 'sub': user.id,
