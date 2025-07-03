@@ -12,6 +12,10 @@ python -m flask db upgrade  # run migrations
 python -m app.main
 ```
 
+This project relies on **Flask 2.3** and requires `flasgger` version
+`0.9.7` or newer. Ensure your dependencies come from the updated
+`requirements.txt` when installing.
+
 After running the application you can access the interactive API documentation
 provided by Swagger at `http://localhost:5000/apidocs/`.
 
