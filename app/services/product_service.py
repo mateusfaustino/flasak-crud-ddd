@@ -1,25 +1,26 @@
-from ..adapters.sqlalchemy.models import Product
-from ..adapters.sqlalchemy.repositories import ProductRepository
+from ..domain.entities import Product
+from ..domain.repositories import ProductRepositoryInterface
 
 
 class ProductService:
-    @staticmethod
-    def create(name: str, price: float):
+    """Business logic for products."""
+
+    def __init__(self, product_repository: ProductRepositoryInterface) -> None:
+        self.product_repository = product_repository
+
+    def create(self, name: str, price: float):
         product = Product(name=name, price=price)
-        ProductRepository.add(product)
+        self.product_repository.add(product)
         return product
 
-    @staticmethod
-    def update(product: Product, name: str, price: float):
+    def update(self, product: Product, name: str, price: float):
         product.name = name
         product.price = price
-        ProductRepository.add(product)
+        self.product_repository.add(product)
         return product
 
-    @staticmethod
-    def get(product_id: int):
-        return ProductRepository.get(product_id)
+    def get(self, product_id: int):
+        return self.product_repository.get(product_id)
 
-    @staticmethod
-    def delete(product: Product):
-        ProductRepository.delete(product)
+    def delete(self, product: Product):
+        self.product_repository.delete(product)

@@ -1,5 +1,4 @@
-from flask import Blueprint, request, jsonify
-from ..services.auth_service import AuthService
+from flask import Blueprint, request, jsonify, current_app
 
 
 auth_bp = Blueprint('auth', __name__)
@@ -10,7 +9,7 @@ def register():
     data = request.get_json() or {}
     username = data.get('username')
     password = data.get('password')
-    user = AuthService.register(username, password)
+    user = current_app.auth_service.register(username, password)
     if user:
         return jsonify({'message': 'User created'}), 201
     return jsonify({'message': 'User already exists'}), 400
@@ -21,7 +20,7 @@ def login():
     data = request.get_json() or {}
     username = data.get('username')
     password = data.get('password')
-    token = AuthService.authenticate(username, password)
+    token = current_app.auth_service.authenticate(username, password)
     if token:
         return jsonify({'token': token})
     return jsonify({'message': 'Invalid credentials'}), 401
