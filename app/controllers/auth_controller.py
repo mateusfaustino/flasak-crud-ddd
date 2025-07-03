@@ -6,6 +6,13 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
+    """Create a new user and return a success message.
+
+    Expects ``username`` and ``password`` fields in the JSON body.
+
+    Returns a tuple ``(response, status_code)`` with ``201`` when the user is
+    created or ``400`` if the user already exists.
+    """
     data = request.get_json() or {}
     username = data.get('username')
     password = data.get('password')
@@ -17,6 +24,13 @@ def register():
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
+    """Authenticate a user and return a JWT token.
+
+    The request body should contain ``username`` and ``password`` fields.
+
+    Returns the generated token in JSON format or ``401`` when credentials are
+    invalid.
+    """
     data = request.get_json() or {}
     username = data.get('username')
     password = data.get('password')
