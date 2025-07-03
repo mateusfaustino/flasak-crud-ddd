@@ -1,4 +1,5 @@
 from flask import Flask
+from flasgger import Swagger
 from .config import Config
 from .extensions import db, migrate, cors
 from .controllers import register_controllers
@@ -14,6 +15,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     cors.init_app(app)
+    Swagger(app)
 
     # Set up repositories and services
     user_repo = UserRepository()

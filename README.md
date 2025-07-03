@@ -12,6 +12,9 @@ python -m flask db upgrade  # run migrations
 python -m app.main
 ```
 
+After running the application you can access the interactive API documentation
+provided by Swagger at `http://localhost:5000/apidocs/`.
+
 ## Arquitetura
 
 Este projeto segue uma separação em três camadas principais (domínio, serviços e adapters).
