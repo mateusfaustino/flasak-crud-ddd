@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import current_app, request, jsonify
 from functools import wraps
 
-from ..domain.models import User
+from ..adapters.sqlalchemy.models import User
 from ..domain.repositories import UserRepository
 
 
