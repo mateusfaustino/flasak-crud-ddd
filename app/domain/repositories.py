@@ -1,4 +1,4 @@
-from .models import User, Product
+from ..adapters.sqlalchemy.models import User, Product
 from ..extensions import db
 
 
