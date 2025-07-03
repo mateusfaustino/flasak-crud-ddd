@@ -11,3 +11,9 @@ pip install -r requirements.txt
 python -m flask db upgrade  # run migrations
 python -m app.main
 ```
+
+## Arquitetura
+
+Este projeto segue uma separação em três camadas principais (domínio, serviços e adapters).
+Uma descrição detalhada de como elas se relacionam e como podem ser estendidas está em
+[docs/architecture.md](docs/architecture.md).
