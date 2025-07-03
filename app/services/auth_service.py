@@ -5,7 +5,7 @@ from flask import current_app, request, jsonify
 from functools import wraps
 
 from ..adapters.sqlalchemy.models import User
-from ..domain.repositories import UserRepository
+from ..adapters.sqlalchemy.repositories import UserRepository
 
 
 class AuthService:

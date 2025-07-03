@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 
 from ..services.product_service import ProductService
 from ..services.auth_service import jwt_required
-from ..domain.repositories import ProductRepository
+from ..adapters.sqlalchemy.repositories import ProductRepository
 
 product_bp = Blueprint('product', __name__)
 

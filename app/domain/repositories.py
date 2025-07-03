@@ -1,33 +1,31 @@
-from ..adapters.sqlalchemy.models import User, Product
-from ..extensions import db
+"""Repository interface definitions for the domain layer."""
+
+from typing import Iterable, Optional, Protocol
+
+from .entities import Product, User
 
 
-class UserRepository:
-    @staticmethod
-    def get_by_username(username: str):
-        return User.query.filter_by(username=username).first()
+class UserRepositoryInterface(Protocol):
+    """Interface for user persistence operations."""
 
-    @staticmethod
-    def add(user: User):
-        db.session.add(user)
-        db.session.commit()
+    def get_by_username(self, username: str) -> Optional[User]:
+        """Return a user by its username or ``None`` if not found."""
+
+    def add(self, user: User) -> None:
+        """Persist a ``User`` instance."""
 
 
-class ProductRepository:
-    @staticmethod
-    def all():
-        return Product.query.all()
+class ProductRepositoryInterface(Protocol):
+    """Interface for product persistence operations."""
 
-    @staticmethod
-    def get(product_id: int):
-        return Product.query.get(product_id)
+    def all(self) -> Iterable[Product]:
+        """Return all stored products."""
 
-    @staticmethod
-    def add(product: Product):
-        db.session.add(product)
-        db.session.commit()
+    def get(self, product_id: int) -> Optional[Product]:
+        """Return a product by id or ``None`` if it does not exist."""
 
-    @staticmethod
-    def delete(product: Product):
-        db.session.delete(product)
-        db.session.commit()
+    def add(self, product: Product) -> None:
+        """Persist a ``Product`` instance."""
+
+    def delete(self, product: Product) -> None:
+        """Remove a ``Product`` instance."""
