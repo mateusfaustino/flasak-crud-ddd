@@ -4,7 +4,7 @@ This project demonstrates a simple Domain Driven Design (DDD) structure for a Fl
 
 ## Setup
 
-Install dependencies and run the application:
+Install dependencies (which include Flask-SQLAlchemy) and run the application:
 
 ```bash
 pip install -r requirements.txt
